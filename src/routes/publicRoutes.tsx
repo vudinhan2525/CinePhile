@@ -1,4 +1,5 @@
 import MainLayout from "@layouts/MainLayout";
+import RegisterPage from "@pages/RegisterPage";
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 
@@ -12,6 +13,7 @@ const publicRoutes: RouteObject[] = [
     children: [
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
+      { path: "register", element: <RegisterPage /> },
     ],
   },
 ];
