@@ -1,4 +1,4 @@
-import { ArrowLeft, Camera, ChevronsRight, Eye, EyeOff, Film, Popcorn, Ticket, Upload } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, Film, Popcorn, Ticket } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
 const RegisterPage = () => {
@@ -87,7 +87,7 @@ const RegisterPage = () => {
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${backgrounds[currentBg]} transition-all duration-1000 flex flex-col justify-center items-center p-4 overflow-hidden`}>
-      {/* Animated film elements in background */}
+      {/* Các yếu tố phim hoạt hình trong nền */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 opacity-10">
           <Ticket size={64} className="text-white animate-pulse" style={{ animationDuration: '4s' }} />
@@ -99,7 +99,7 @@ const RegisterPage = () => {
           <Film size={56} className="text-white animate-pulse" style={{ animationDuration: '5s' }} />
         </div>
 
-        {/* Cinematic light flares */}
+        {/* Ánh sáng phim */}
         <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-amber-500/20 blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-rose-500/20 blur-3xl animate-pulse" style={{ animationDuration: '10s' }}></div>
       </div>
@@ -112,14 +112,14 @@ const RegisterPage = () => {
               <Ticket size={24} className="text-amber-500" />
             </div>
           </div>
-          <span className="text-white text-2xl font-bold tracking-wider">SCREENTIME</span>
+          <span className="text-white text-2xl font-bold tracking-wider">CINEPHILE</span>
         </div>
-        <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">Join The Movie Club</h1>
-        <p className="text-gray-300 text-center max-w-md">Create your account to access exclusive screenings and offers</p>
+        {/* <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">Tham Gia Câu Lạc Bộ Phim</h1> */}
+        <p className="text-gray-300 text-center max-w-md">Đăng ký thành viên để đặt vé sớm và hưởng nhiều ưu đãi đặc biệt</p>
       </div>
 
       <div className="w-full max-w-md bg-black/50 backdrop-blur-md rounded-xl shadow-2xl p-8 border border-white/10 relative z-10">
-        {/* Film strip decoration */}
+        {/* Trang trí dải phim */}
         <div className="absolute -left-3 top-10 bottom-10 w-1.5 flex flex-col space-y-2">
           {Array(10).fill(0).map((_, i) => (
             <div key={i} className="h-3 w-1.5 bg-amber-500/70 rounded-sm"></div>
@@ -131,7 +131,7 @@ const RegisterPage = () => {
           ))}
         </div>
 
-        {/* Registration progress indicator */}
+        {/* Chỉ số tiến trình đăng ký */}
         <div className="mb-6 flex justify-between items-center">
           <div className="flex items-center justify-center w-full">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeStep >= 1 ? 'bg-amber-600' : 'bg-gray-700'} text-white font-medium`}>1</div>
@@ -154,14 +154,14 @@ const RegisterPage = () => {
             <div className="space-y-6">
               <div>
                 <label htmlFor="fullName" className="block text-amber-300 text-sm font-medium mb-2">
-                  Full Name <span className="text-red-500">*</span>
+                  Họ và Tên <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="fullName"
                   name="fullName"
                   type="text"
                   className="w-full bg-black/50 border border-amber-500/30 text-white rounded-lg p-3.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition-all duration-200"
-                  placeholder="Enter your full name"
+                  placeholder="Nhập họ và tên của bạn"
                   value={formData.fullName}
                   onChange={handleInputChange}
                   required
@@ -170,49 +170,28 @@ const RegisterPage = () => {
 
               <div>
                 <label htmlFor="email" className="block text-amber-300 text-sm font-medium mb-2">
-                  Email Address <span className="text-red-500">*</span>
+                  Địa chỉ Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="email"
                   name="email"
                   type="email"
                   className="w-full bg-black/50 border border-amber-500/30 text-white rounded-lg p-3.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition-all duration-200"
-                  placeholder="Enter your email"
+                  placeholder="Nhập địa chỉ email của bạn"
                   value={formData.email}
                   onChange={handleInputChange}
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-amber-300 text-sm font-medium mb-2">
-                  Profile Picture (Optional)
-                </label>
-                <div className="flex items-center gap-4">
-                  <div className="h-20 w-20 bg-black/30 border border-amber-500/30 rounded-lg flex items-center justify-center overflow-hidden">
-                    {avatar ? (
-                      <img src={avatar} alt="Avatar" className="h-full w-full object-cover" />
-                    ) : (
-                      <Camera size={28} className="text-amber-500/50" />
-                    )}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={handleAvatarUpload}
-                    className="flex items-center gap-2 bg-black/30 border border-amber-500/30 text-amber-400 px-4 py-2 rounded-lg hover:bg-amber-950/30 transition-colors"
-                  >
-                    <Upload size={16} />
-                    Upload Avatar
-                  </button>
-                </div>
-              </div>
+
 
               <button
                 type="button"
                 onClick={goToNextStep}
                 className="w-full bg-gradient-to-r from-amber-600 to-red-600 text-white font-medium py-3.5 px-4 rounded-lg hover:from-amber-500 hover:to-red-500 transition-all duration-300 flex items-center justify-center shadow-lg shadow-amber-900/30"
               >
-                Continue <ChevronsRight size={18} className="ml-2" />
+                Tiếp tục
               </button>
             </div>
           )}
@@ -221,7 +200,7 @@ const RegisterPage = () => {
             <div className="space-y-6">
               <div>
                 <label htmlFor="password" className="block text-amber-300 text-sm font-medium mb-2">
-                  Password <span className="text-red-500">*</span>
+                  Mật khẩu <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -229,7 +208,7 @@ const RegisterPage = () => {
                     name="password"
                     type={showPassword ? "text" : "password"}
                     className="w-full bg-black/50 border border-amber-500/30 text-white rounded-lg p-3.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition-all duration-200"
-                    placeholder="Create a password"
+                    placeholder="Tạo mật khẩu của bạn"
                     value={formData.password}
                     onChange={handleInputChange}
                     required
@@ -242,12 +221,12 @@ const RegisterPage = () => {
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
-                <p className="text-gray-400 text-xs mt-1">Password must be at least 8 characters long</p>
+                <p className="text-gray-400 text-xs mt-1">Mật khẩu phải có ít nhất 8 ký tự</p>
               </div>
 
               <div>
                 <label htmlFor="confirmPassword" className="block text-amber-300 text-sm font-medium mb-2">
-                  Confirm Password <span className="text-red-500">*</span>
+                  Xác nhận mật khẩu <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -255,7 +234,7 @@ const RegisterPage = () => {
                     name="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
                     className="w-full bg-black/50 border border-amber-500/30 text-white rounded-lg p-3.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition-all duration-200"
-                    placeholder="Confirm your password"
+                    placeholder="Xác nhận mật khẩu của bạn"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     required
@@ -284,7 +263,7 @@ const RegisterPage = () => {
                 </div>
                 <div className="ml-3 text-sm">
                   <label htmlFor="agreeToTerms" className="text-gray-300">
-                    I agree to the <a href="#" className="text-amber-400 hover:text-amber-300">Terms of Service</a> and <a href="#" className="text-amber-400 hover:text-amber-300">Privacy Policy</a>
+                    Tôi đồng ý với <a href="#" className="text-amber-400 hover:text-amber-300">Điều khoản dịch vụ</a> và <a href="#" className="text-amber-400 hover:text-amber-300">Chính sách bảo mật</a>
                   </label>
                 </div>
               </div>
@@ -295,7 +274,7 @@ const RegisterPage = () => {
                   onClick={goToPreviousStep}
                   className="flex-1 border border-amber-500/30 text-white py-3 px-4 rounded-lg hover:bg-amber-900/20 transition-all duration-300 flex items-center justify-center"
                 >
-                  <ArrowLeft size={18} className="mr-2" /> Back
+                  <ArrowLeft size={18} className="mr-2" /> Quay lại
                 </button>
 
                 <button
@@ -310,7 +289,7 @@ const RegisterPage = () => {
                     </svg>
                   ) : (
                     <>
-                      Complete Sign Up
+                      Hoàn tất Đăng ký
                     </>
                   )}
                 </button>
@@ -322,7 +301,7 @@ const RegisterPage = () => {
         <div className="mt-8 text-center">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="h-px bg-amber-500/20 w-full"></div>
-            <span className="text-amber-300/70 whitespace-nowrap text-sm">ALREADY A MEMBER?</span>
+            <span className="text-amber-300/70 whitespace-nowrap text-sm">ĐÃ CÓ TÀI KHOẢN?</span>
             <div className="h-px bg-amber-500/20 w-full"></div>
           </div>
 
@@ -330,17 +309,17 @@ const RegisterPage = () => {
             onClick={() => { }}
             className="w-full border border-amber-500/30 text-white py-3 px-4 rounded-lg hover:bg-amber-900/20 transition-all duration-200"
           >
-            Sign In
+            Đăng Nhập
           </button>
         </div>
       </div>
 
-      {/* Now showing section */}
+      {/* Phim đang chiếu */}
       <div className="mt-8 bg-black/30 backdrop-blur-sm p-3 rounded-lg border border-white/10 flex items-center gap-3 relative z-10">
-        <div className="bg-red-600 px-2 py-1 rounded text-xs font-bold text-white uppercase animate-pulse">Premieres</div>
+        <div className="bg-red-600 px-2 py-1 rounded text-xs font-bold text-white uppercase animate-pulse">Đang chiếu</div>
         <div className="text-white text-sm overflow-hidden whitespace-nowrap">
           <span className="inline-block animate-marquee">
-            Dune: Part Two • Gladiator II • The Batman: Vengeance • Furiosa • Mission Impossible 8 • Avatar 3 •
+            Dune: Phần Hai • Gladiator II • The Batman: Báo Thù • Furiosa • Mission Impossible 8 • Avatar 3 •
           </span>
         </div>
       </div>

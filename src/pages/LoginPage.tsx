@@ -1,4 +1,4 @@
-import { ChevronsRight, Clock, Eye, EyeOff, Popcorn, Star, Ticket } from 'lucide-react';
+import { Clock, Eye, EyeOff, Popcorn, Star, Ticket } from 'lucide-react';
 
 import React, { useEffect, useState } from 'react';
 
@@ -75,10 +75,10 @@ const Login = () => {
               <Ticket size={24} className="text-amber-500" />
             </div>
           </div>
-          <span className="text-white text-2xl font-bold tracking-wider">SCREENTIME</span>
+          <span className="text-white text-2xl font-bold tracking-wider">CINEPHILE</span>
         </div>
-        <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">Your Ticket Awaits</h1>
-        <p className="text-gray-300 text-center max-w-md">Sign in to continue your cinematic journey</p>
+        <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">Vé Của Bạn Đang Chờ</h1>
+        <p className="text-gray-300 text-center max-w-md">Đăng Nhập Để Tiếp Tục Hành Trình Điện Ảnh Của Bạn</p>
       </div>
 
       <div className="w-full max-w-md bg-black/50 backdrop-blur-md rounded-xl shadow-2xl p-8 border border-white/10 relative z-10">
@@ -106,14 +106,14 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
             <label htmlFor="email" className="block text-amber-300 text-sm font-medium mb-2">
-              Email Address
+              Địa Chỉ Email
             </label>
             <div className="group">
               <input
                 id="email"
                 type="email"
                 className="w-full bg-black/50 border border-amber-500/30 text-white rounded-lg p-3.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition-all duration-200"
-                placeholder="Enter your email"
+                placeholder="Nhập Email Của Bạn"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -123,14 +123,14 @@ const Login = () => {
 
           <div className="mb-6">
             <label htmlFor="password" className="block text-amber-300 text-sm font-medium mb-2">
-              Password
+              Mật Khẩu
             </label>
             <div className="relative group">
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 className="w-full bg-black/50 border border-amber-500/30 text-white rounded-lg p-3.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition-all duration-200"
-                placeholder="Enter your password"
+                placeholder="Nhập Mật Khẩu Của Bạn"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -151,11 +151,11 @@ const Login = () => {
                   className="h-4 w-4 rounded border-amber-500/30 bg-black/50 text-amber-500 focus:ring-amber-500/50"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
-                  Remember me
+                  Nhớ Tôi
                 </label>
               </div>
               <a href="#" className="text-amber-400 text-sm hover:text-amber-300 transition-colors duration-200">
-                Forgot Password?
+                Quên Mật Khẩu?
               </a>
             </div>
           </div>
@@ -172,7 +172,7 @@ const Login = () => {
               </svg>
             ) : (
               <>
-                Get Your Tickets <ChevronsRight size={18} className="ml-2" />
+                Nhận Vé Của Bạn
               </>
             )}
           </button>
@@ -181,34 +181,34 @@ const Login = () => {
         <div className="mt-8 text-center">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="h-px bg-amber-500/20 w-full"></div>
-            <span className="text-amber-300/70 whitespace-nowrap text-sm">NEW TO SCREENTIME?</span>
+            <span className="text-amber-300/70 whitespace-nowrap text-sm">MỚI ĐẾN CINEPHILE?</span>
             <div className="h-px bg-amber-500/20 w-full"></div>
           </div>
 
           <button className="w-full border border-amber-500/30 text-white py-3 px-4 rounded-lg hover:bg-amber-900/20 transition-all duration-200 mb-4">
-            Create an Account
+            Tạo Tài Khoản
           </button>
 
           <p className="text-gray-400 text-sm">
-            By continuing, you agree to our <a href="#" className="text-amber-400 hover:text-amber-300">Terms of Service</a> and <a href="#" className="text-amber-400 hover:text-amber-300">Privacy Policy</a>
+            Bằng Cách Tiếp Tục, Bạn Đồng Ý Với <a href="#" className="text-amber-400 hover:text-amber-300">Điều Khoản Dịch Vụ</a> và <a href="#" className="text-amber-400 hover:text-amber-300">Chính Sách Bảo Mật</a>
           </p>
         </div>
       </div>
 
       {/* Now showing section */}
       <div className="mt-8 bg-black/30 backdrop-blur-sm p-3 rounded-lg border border-white/10 flex items-center gap-3 relative z-10">
-        <div className="bg-red-600 px-2 py-1 rounded text-xs font-bold text-white uppercase animate-pulse">Now Showing</div>
+        <div className="bg-red-600 px-2 py-1 rounded text-xs font-bold text-white uppercase animate-pulse">Đang Chiếu</div>
         <div className="text-white text-sm overflow-hidden whitespace-nowrap">
           <span className="inline-block animate-marquee">
-            Dune: Part Two • Gladiator II • The Batman: Vengeance • Furiosa • Mission Impossible 8 • Avatar 3 •
+            Dune: Phần Hai • Gladiator II • Người Dơi: Sức Mạnh • Furiosa • Nhiệm Vụ Bất Khả Thi 8 • Avatar 3 •
           </span>
         </div>
       </div>
 
       <style>{`
         @keyframes marquee {
-          0% { transform: translateX(100%); }
-          100% { transform: translateX(-100%); }
+           0% { transform: translateX(100%); }
+           100% { transform: translateX(-100%); }
         }
         .animate-marquee {
           animation: marquee 20s linear infinite;
