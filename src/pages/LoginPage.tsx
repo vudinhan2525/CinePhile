@@ -1,6 +1,7 @@
 import { Clock, Eye, EyeOff, Popcorn, Star, Ticket } from 'lucide-react';
 
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -10,7 +11,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [currentBg, setCurrentBg] = useState(0);
-
+  const navigate = useNavigate()
   // Array of film-inspired gradient backgrounds
   const backgrounds = [
     'from-rose-900 via-red-800 to-amber-900', // Warm cinematic
@@ -37,6 +38,7 @@ const Login = () => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
 
+      navigate("/");
 
     } catch (err) {
       setError('Invalid email or password. Please try again.');
@@ -67,18 +69,15 @@ const Login = () => {
         <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-rose-500/20 blur-3xl animate-pulse" style={{ animationDuration: '10s' }}></div>
       </div>
 
-      <div className="flex flex-col items-center mb-8 relative z-10">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-red-600 rounded-lg blur"></div>
-            <div className="relative bg-black p-2.5 rounded-lg border border-amber-500/30">
-              <Ticket size={24} className="text-amber-500" />
-            </div>
-          </div>
-          <span className="text-white text-2xl font-bold tracking-wider">CINEPHILE</span>
+      <div className="flex flex-col items-center  mb-2 relative z-10">
+        <div className="flex items-center gap-3 ">
+
+          <img src="src/assets/logo/logo.svg" alt="Cinephile" className="h-[120px] " />
+
         </div>
-        <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">Vé Của Bạn Đang Chờ</h1>
-        <p className="text-gray-300 text-center max-w-md">Đăng Nhập Để Tiếp Tục Hành Trình Điện Ảnh Của Bạn</p>
+        <p className="text-gray-300 text-center max-w-md">Đăng nhập để tiếp tục trải nghiệm và tận hưởng những đặc quyền dành riêng cho bạn</p>
+        {/* <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">Đăng Nhập</h1> */}
+        {/* <p className="text-gray-300 text-center max-w-md">Đăng Nhập Để Tiếp Tục Hành Trình Điện Ảnh Của Bạn</p> */}
       </div>
 
       <div className="w-full max-w-md bg-black/50 backdrop-blur-md rounded-xl shadow-2xl p-8 border border-white/10 relative z-10">
@@ -144,17 +143,8 @@ const Login = () => {
               </button>
             </div>
             <div className="flex justify-between mt-2.5">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-amber-500/30 bg-black/50 text-amber-500 focus:ring-amber-500/50"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
-                  Nhớ Tôi
-                </label>
-              </div>
-              <a href="#" className="text-amber-400 text-sm hover:text-amber-300 transition-colors duration-200">
+
+              <a href="#" className="ml-auto text-amber-400 text-sm hover:text-amber-300 transition-colors duration-200">
                 Quên Mật Khẩu?
               </a>
             </div>
@@ -185,7 +175,9 @@ const Login = () => {
             <div className="h-px bg-amber-500/20 w-full"></div>
           </div>
 
-          <button className="w-full border border-amber-500/30 text-white py-3 px-4 rounded-lg hover:bg-amber-900/20 transition-all duration-200 mb-4">
+          <button onClick={() => {
+            navigate("/register");
+          }} className="w-full border border-amber-500/30 text-white py-3 px-4 rounded-lg hover:bg-amber-900/20 transition-all duration-200 mb-4">
             Tạo Tài Khoản
           </button>
 
@@ -214,7 +206,7 @@ const Login = () => {
           animation: marquee 20s linear infinite;
         }
       `}</style>
-    </div>
+    </div >
   );
 };
 

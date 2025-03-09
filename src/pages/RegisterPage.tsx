@@ -1,5 +1,6 @@
 import { ArrowLeft, Eye, EyeOff, Film, Popcorn, Ticket } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const RegisterPage = () => {
   const [error, setError] = useState('');
   const [currentBg, setCurrentBg] = useState(0);
   const [activeStep, setActiveStep] = useState(1);
-  const [avatar, setAvatar] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   // Array of film-inspired gradient backgrounds
   const backgrounds = [
@@ -42,10 +43,6 @@ const RegisterPage = () => {
     }));
   };
 
-  const handleAvatarUpload = () => {
-    // Simulate avatar upload with a placeholder
-    setAvatar("/api/placeholder/100/100");
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +58,7 @@ const RegisterPage = () => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
-
+      navigate("/login");
     } catch (err) {
       setError('Registration failed. Please try again.');
     } finally {
@@ -104,15 +101,10 @@ const RegisterPage = () => {
         <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-rose-500/20 blur-3xl animate-pulse" style={{ animationDuration: '10s' }}></div>
       </div>
 
-      <div className="flex flex-col items-center mb-8 relative z-10">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-red-600 rounded-lg blur"></div>
-            <div className="relative bg-black p-2.5 rounded-lg border border-amber-500/30">
-              <Ticket size={24} className="text-amber-500" />
-            </div>
-          </div>
-          <span className="text-white text-2xl font-bold tracking-wider">CINEPHILE</span>
+      <div className="flex flex-col items-center mb-2 relative z-10">
+        <div className="flex items-center gap-3">
+          <img src="src/assets/logo/logo.svg" alt="Cinephile" className="h-[120px] " />
+
         </div>
         {/* <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">Tham Gia Câu Lạc Bộ Phim</h1> */}
         <p className="text-gray-300 text-center max-w-md">Đăng ký thành viên để đặt vé sớm và hưởng nhiều ưu đãi đặc biệt</p>
@@ -306,7 +298,9 @@ const RegisterPage = () => {
           </div>
 
           <button
-            onClick={() => { }}
+            onClick={() => {
+              navigate("/login");
+            }}
             className="w-full border border-amber-500/30 text-white py-3 px-4 rounded-lg hover:bg-amber-900/20 transition-all duration-200"
           >
             Đăng Nhập
