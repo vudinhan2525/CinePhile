@@ -104,7 +104,6 @@ const RegisterPage = () => {
       <div className="flex flex-col items-center mb-2 relative z-10">
         <div className="flex items-center gap-3">
           <img src="src/assets/logo/logo.svg" alt="Cinephile" className="h-[120px] " />
-
         </div>
         {/* <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">Tham Gia Câu Lạc Bộ Phim</h1> */}
         <p className="text-gray-300 text-center max-w-md">Đăng ký thành viên để đặt vé sớm và hưởng nhiều ưu đãi đặc biệt</p>
