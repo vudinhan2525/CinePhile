@@ -65,8 +65,8 @@ const Login = () => {
         </div>
 
         {/* Cinematic light flares */}
-        <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-amber-500/20 blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-rose-500/20 blur-3xl animate-pulse" style={{ animationDuration: '10s' }}></div>
+        <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-amber-500/20 blur-2xl animate-pulse" style={{ animationDuration: '8s' }}></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-rose-500/20 blur-2xl animate-pulse" style={{ animationDuration: '10s' }}></div>
       </div>
 
       <div className="flex flex-col items-center  mb-2 relative z-10">
