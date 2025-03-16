@@ -113,7 +113,7 @@ const MovieDetail = () => {
         <div className="h-full flex flex-col bg-primary-800 p-4 rounded-lg">
           <h2 className="text-lg font-semibold mb-4">Select Date & Time</h2>
           <div className="flex-grow">
-            <DatePickerSlider range={5} selectedDate={selectedDate} onDateChange={setSelectedDate} />
+            <DatePickerSlider containerClass='  bg-primary-800 rounded-lg p-4 ' range={5} selectedDate={selectedDate} onDateChange={setSelectedDate} />
           </div>
         </div>
 

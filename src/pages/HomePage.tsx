@@ -1,6 +1,6 @@
-import { ChevronRight, Film, Play, Search, Star } from 'lucide-react';
-import { useState } from 'react';
-
+import DatePickerSlider from '@components/DatePicker';
+import { ChevronRight, Clock, Film, Info, Play, Search, Star } from 'lucide-react';
+import { useEffect, useState } from 'react';
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState('now-showing');
 
@@ -37,81 +37,107 @@ const HomePage = () => {
     }
   ];
 
-  const nowShowingMovies = [
+  // Generate dates for the next 7 days
+  const generateDates = () => {
+    const dates = [];
+    const today = new Date();
+
+    for (let i = 0; i < 7; i++) {
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+
+      const formattedDate = {
+        day: date.toLocaleDateString('en-US', { weekday: 'short' }),
+        date: date.getDate(),
+        month: date.toLocaleDateString('en-US', { month: 'short' }),
+        fullDate: date,
+        isToday: i === 0
+      };
+
+      dates.push(formattedDate);
+    }
+    return dates;
+  };
+
+  const availableDates = generateDates();
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
+
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Update current time every minute
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const movies = [
     {
       id: 1,
-      title: 'John Wick: Chapter 3 - Parabellum',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '8.1/10'
+      title: "John Wick: Chapter 3 - Parabellum",
+      rating: "8.1/10",
+      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
+      genre: "Action, Thriller",
+      duration: "2h 10m"
     },
     {
       id: 2,
-      title: 'Avengers: Endgame',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '8.4/10'
+      title: "Avengers: Endgame",
+      rating: "8.4/10",
+      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
+      genre: "Action, Adventure",
+      duration: "3h 1m"
     },
     {
       id: 3,
-      title: 'Joker',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '8.4/10'
+      title: "Joker",
+      rating: "8.4/10",
+      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
+      genre: "Crime, Drama",
+      duration: "2h 2m"
     },
     {
       id: 4,
-      title: 'Spider-Man: Far From Home',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '7.5/10'
+      title: "Spider-Man: Far From Home",
+      rating: "7.5/10",
+      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
+      genre: "Action, Adventure",
+      duration: "2h 9m"
     },
     {
       id: 5,
-      title: 'The Lion King',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '6.9/10'
+      title: "The Lion King",
+      rating: "6.9/10",
+      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
+      genre: "Animation, Adventure",
+      duration: "1h 58m"
     }
   ];
 
-  const comingSoonMovies = [
-    {
-      id: 6,
-      title: 'Fast & Furious Presents: Hobbs & Shaw',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '6.5/10'
-    },
-    {
-      id: 7,
-      title: 'It Chapter Two',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '6.5/10'
-    },
-    {
-      id: 8,
-      title: 'Once Upon a Time in Hollywood',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '7.6/10'
-    },
-    {
-      id: 9,
-      title: 'The Irishman',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '7.9/10'
-    },
-    {
-      id: 10,
-      title: 'Star Wars: The Rise of Skywalker',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '6.5/10'
-    }
-  ];
+  // Time slot selection
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+
+  // Check if showtime has passed
+  const isShowtimePassed = (timeStr) => {
+    const today = new Date().toISOString().split("T")[0];
+    if (selectedDate !== today) return false;
+
+    const [timePart, ampm] = timeStr.split(' ');
+    const [hours, minutes] = timePart.split(':').map(Number);
+    // const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
+
+    let showHours = hours;
+    if (ampm === 'PM' && hours < 12) showHours += 12;
+    if (ampm === 'AM' && hours === 12) showHours = 0;
+
+    const showtime = new Date();
+    showtime.setHours(showHours, minutes, 0);
+
+    return currentTime > showtime;
+  };
 
   return (
     <div className="bg-gray-900 min-h-screen text-white">
@@ -122,13 +148,13 @@ const HomePage = () => {
           <span className="text-xl font-bold text-primary-300">Cinephile</span>
         </div>
         <div className="hidden md:flex space-x-8">
-          <button className="text-white hover:text-primary-400">Movies</button>
-          <button className="text-white hover:text-primary-400">Events</button>
-          <button className="text-white hover:text-primary-400">Events</button>
-          <button className="text-white hover:text-primary-400">Events</button>
-          <button className="text-white hover:text-primary-400">Events</button>
-          <button className="text-white hover:text-primary-400">Events</button>
-          <button className="text-white hover:text-primary-400">Events</button>
+          <button className="text-white hover:text-primary-400">Phim</button>
+          <button className="text-white hover:text-primary-400">Sự kiện</button>
+          <button className="text-white hover:text-primary-400">Sự kiện</button>
+          <button className="text-white hover:text-primary-400">Sự kiện</button>
+          <button className="text-white hover:text-primary-400">Sự kiện</button>
+          <button className="text-white hover:text-primary-400">Sự kiện</button>
+          <button className="text-white hover:text-primary-400">Sự kiện</button>
           {/* Các nút khác tương tự */}
         </div>
         <div className="flex items-center space-x-4">
@@ -136,7 +162,7 @@ const HomePage = () => {
             <Search className="text-primary-200" size={20} />
           </button>
           <div className="flex items-center space-x-2">
-            <span className="text-primary-100">Hi, Samuel</span>
+            <span className="text-primary-100">Xin chào, Samuel</span>
             <div className="w-8 h-8 bg-primary-700 rounded-full"></div>
           </div>
         </div>
@@ -159,11 +185,11 @@ const HomePage = () => {
             </div>
             <div className="flex space-x-4">
               <button className="bg-primary-600 hover:bg-primary-700 px-6 py-2 rounded-md flex items-center space-x-2 text-white transition-colors duration-300">
-                <span>Book Tickets</span>
+                <span>Đặt vé</span>
               </button>
               <button className="bg-primary-700 hover:bg-primary-800 px-6 py-2 rounded-md flex items-center space-x-2 text-white transition-colors duration-300">
                 <Play size={16} />
-                <span>Watch Trailer</span>
+                <span>Xem trailer</span>
               </button>
 
             </div>
@@ -173,82 +199,121 @@ const HomePage = () => {
 
       {/* Movies Section */}
       <section className="bg-primary-950 px-6 py-8">
-        <div className="flex border-primary-800 mb-6">
+        <div className="flex border-b border-primary-800 mb-6">
           <button
-            className={`pb-4 px-6 font-medium ${activeTab === 'now-showing'
-              ? 'text-primary-400 border-b-2 border-primary-400'
+            className={`flex items-center pb-4 px-6 font-medium ${activeTab === 'now-showing'
+              ? 'text-blue-400 border-b-2 border-blue-400'
               : 'text-primary-600'
               }`}
             onClick={() => setActiveTab('now-showing')}
           >
-            Now Showing
+            <Film className="w-5 h-5 mr-2 text-blue-400" />
+            Đang chiếu
           </button>
           <button
-            className={`pb-4 px-6 font-medium ${activeTab === 'coming-soon'
-              ? 'text-primary-400 border-b-2 border-primary-400'
+            className={`flex items-center pb-4 px-6 font-medium ${activeTab === 'coming-soon'
+              ? 'text-blue-400 border-b-2 border-blue-400'
               : 'text-primary-600'
               }`}
             onClick={() => setActiveTab('coming-soon')}
           >
-            Coming Soon
+            <Clock className="w-5 h-5 mr-2 text-blue-400" />
+            Sắp chiếu
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {(activeTab === 'now-showing' ? nowShowingMovies : comingSoonMovies).map(
-            (movie) => (
-              <div
-                key={movie.id}
-                className="group cursor-pointer border border-transparent group-hover:border-primary-400 transition-all duration-300"
-              >
-                <div className="relative overflow-hidden rounded-lg mb-2 shadow-md group-hover:shadow-lg">
-                  <img
-                    src={movie.image}
-                    alt={movie.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                    <div className="flex items-center space-x-1">
-                      <Star className="text-yellow-400" size={14} fill="currentColor" />
-                      <span className="text-sm text-primary-200">{movie.rating}</span>
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity duration-300 flex items-center justify-center">
-                    {/* <button className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      Book Now
-                    </button> */}
-                  </div>
-                </div>
-                <h3 className="font-medium text-sm truncate text-white">{movie.title}</h3>
-
-                {/* 🕒 Thêm danh sách suất chiếu */}
-                {movie.showtimes && movie.showtimes.length > 0 && (
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {movie.showtimes.map((time, index) => (
-                      <button key={index} className="bg-primary-700 hover:bg-primary-600 px-2 py-1 rounded text-sm text-white">{time}</button>
-
-                    ))}
-                  </div>
-                )}
-              </div>
-            )
-          )}
-        </div>
 
         <div className="mt-6 text-center">
-          <button className="text-primary-400 flex items-center space-x-1 mx-auto">
-            <span>View All Movies</span>
-            <ChevronRight className="text-primary-400" size={16} />
-          </button>
+          <div className="mb-6">
+
+            {/* Date selector with animation */}
+            <DatePickerSlider range={5} selectedDate={selectedDate} onDateChange={setSelectedDate} />
+          </div>
+
+          {/* Movies list in two columns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {movies.map(movie => (
+              <div
+                key={movie.id}
+                className={`bg-primary-800 rounded-lg overflow-hidden transition-all duration-300 hover:bg-primary-700 h-full ${selectedMovie === movie.id ? 'ring-2 ring-primary-400 shadow-lg' : ''
+                  }`}
+              >
+                <div className="flex h-full">
+                  {/* Movie poster section */}
+                  <div className="w-1/3 h-auto relative overflow-hidden" style={{ backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary-950/60 to-transparent"></div>
+                    <div className="absolute bottom-2 left-2 bg-yellow-500 text-black px-2 py-1 rounded text-xs font-bold flex items-center">
+                      <Star className="w-3 h-3 mr-1 fill-current" />
+                      <span>{movie.rating}</span>
+                    </div>
+                  </div>
+
+                  {/* Movie details and showtimes */}
+                  <div className="p-3 w-2/3 flex flex-col">
+                    <div className="mb-2">
+                      <h3 className="font-bold text-sm md:text-base line-clamp-1 text-white">{movie.title}</h3>
+                      <div className="flex items-center text-primary-300 text-xs mt-1">
+                        <Clock className="w-3 h-3 mr-1" />
+                        <span className="mr-2">{movie.duration}</span>
+                        <Info className="w-3 h-3 mr-1" />
+                        <span className="truncate">{movie.genre}</span>
+                      </div>
+                    </div>
+
+                    {/* Compact time selection */}
+                    <div className="flex-grow">
+                      <h4 className="text-xs font-medium mb-2 text-primary-300 text-left">Chọn giờ chiếu:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {movie.times.map((time, idx) => {
+                          const isPassed = isShowtimePassed(time);
+                          return (
+                            <button
+                              key={idx}
+                              disabled={isPassed}
+                              className={`px-2 py-1 rounded text-center text-xs transition-all duration-200 transform ${isPassed
+                                ? 'bg-primary-950 text-primary-600 line-through cursor-not-allowed opacity-60'
+                                : selectedMovie === movie.id && selectedTime === time
+                                  ? 'bg-primary-500 text-white border border-primary-400 shadow-md'
+                                  : 'bg-primary-900 border border-primary-600 text-primary-200 hover:border-primary-400 hover:text-primary-100'
+                                }`}
+                              onClick={() => {
+                                if (!isPassed) {
+                                  setSelectedMovie(movie.id);
+                                  setSelectedTime(time);
+                                }
+                              }}
+                            >
+                              {time}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Booking button with animation */}
+                    <div
+                      className={`mt-3 transition-all duration-300 ease-in-out ${selectedMovie === movie.id && selectedTime ? 'opacity-100 h-auto' : 'opacity-0 h-0 overflow-hidden'
+                        }`}
+                    >
+                      <button className="w-full bg-primary-500 hover:bg-primary-400 px-3 py-1.5 rounded text-xs font-medium transition-all duration-300 transform hover:shadow-lg text-white">
+                        Book Tickets
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* Cinema Selection */}
       <section className="px-6 py-8 bg-primary-900">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Popular Theaters</h2>
+          <h2 className="text-2xl font-bold text-white">Rạp phim phổ biến</h2>
           <button className="text-primary-400 flex items-center space-x-1">
-            <span>View All</span>
+            <span>Xem tất cả</span>
             <ChevronRight className="text-primary-400" size={16} />
           </button>
         </div>
@@ -274,38 +339,38 @@ const HomePage = () => {
               <span className="text-xl font-bold text-primary-300">Cinephile</span>
             </div>
             <p className="text-primary-300 text-sm max-w-md">
-              Book movie tickets for your favorite movies from your home, office or while travelling.
+              Đặt vé xem phim cho bộ phim yêu thích của bạn từ nhà, văn phòng hoặc khi đi du lịch.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
             <div>
-              <h4 className="font-bold mb-4 text-white">Movies</h4>
+              <h4 className="font-bold mb-4 text-white">Phim</h4>
               <ul className="space-y-2 text-sm text-primary-300">
-                <li className="cursor-pointer hover:text-primary-200">Now Showing</li>
-                <li className="cursor-pointer hover:text-primary-200">Coming Soon</li>
-                <li className="cursor-pointer hover:text-primary-200">Exclusives</li>
+                <li className="cursor-pointer hover:text-primary-200">Đang chiếu</li>
+                <li className="cursor-pointer hover:text-primary-200">Sắp chiếu</li>
+                <li className="cursor-pointer hover:text-primary-200">Độc quyền</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-white">Cinemas</h4>
+              <h4 className="font-bold mb-4 text-white">Rạp phim</h4>
               <ul className="space-y-2 text-sm text-primary-300">
-                <li className="cursor-pointer hover:text-primary-200">All Cinemas</li>
-                <li className="cursor-pointer hover:text-primary-200">Cinema Experiences</li>
-                <li className="cursor-pointer hover:text-primary-200">Food & Drinks</li>
+                <li className="cursor-pointer hover:text-primary-200">Tất cả rạp phim</li>
+                <li className="cursor-pointer hover:text-primary-200">Trải nghiệm rạp phim</li>
+                <li className="cursor-pointer hover:text-primary-200">Đồ ăn & Nước uống</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-white">About</h4>
+              <h4 className="font-bold mb-4 text-white">Về chúng tôi</h4>
               <ul className="space-y-2 text-sm text-primary-300">
-                <li className="cursor-pointer hover:text-primary-200">About Us</li>
-                <li className="cursor-pointer hover:text-primary-200">Contact</li>
-                <li className="cursor-pointer hover:text-primary-200">Terms of Service</li>
+                <li className="cursor-pointer hover:text-primary-200">Về chúng tôi</li>
+                <li className="cursor-pointer hover:text-primary-200">Liên hệ</li>
+                <li className="cursor-pointer hover:text-primary-200">Điều khoản dịch vụ</li>
               </ul>
             </div>
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-primary-900 text-center text-primary-400 text-sm">
-          <p>© 2025 Cinephile. All rights reserved.</p>
+          <p>© 2025 Cinephile. Tất cả các quyền đã được bảo lưu.</p>
         </div>
       </footer>
     </div>
@@ -313,3 +378,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
