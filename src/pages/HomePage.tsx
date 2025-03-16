@@ -2,24 +2,21 @@ import DatePickerSlider from '@components/DatePicker';
 import Footer from '@components/Footer/Footer';
 import Header from '@components/Header/Header';
 import ShowTimeButton from '@components/ShowTimeButton';
+import { useMoviesQuery } from '@hooks/useMoviesQuery';
+import { useMovieStore } from '@store/useMovieStore';
 import { ChevronRight, Clock, Film, Info, Play, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Movie } from 'types/movie';
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState('now-showing');
-
-  const featuredMovies = [
-    {
-      id: 1,
-      title: 'John Wick: Chapter 3 - Parabellum',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT23XpyZp64QmW0II5H0mLVX4RgEZ3JZzfoYg&s',
-      showtimes: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      rating: '8.1/10',
-      year: '2019',
-      genre: 'Action/Thriller',
-      duration: '2h 10 min'
-    },
-  ];
+  const { data, isLoading } = useMoviesQuery();
+  const { setMovies, setFeaturedMovies, movies, featuredMovies } = useMovieStore();
+  useEffect(() => {
+    if (data) {
+      setMovies(data.movies);
+      setFeaturedMovies(data.featuredMovies);
+    }
+  }, [data, setMovies, setFeaturedMovies]);
 
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
 
@@ -33,50 +30,6 @@ const HomePage = () => {
 
     return () => clearInterval(timer);
   }, []);
-
-  const movies = [
-    {
-      id: 1,
-      title: "John Wick: Chapter 3 - Parabellum",
-      rating: "8.1/10",
-      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      genre: "Action, Thriller",
-      duration: "2h 10m"
-    },
-    {
-      id: 2,
-      title: "Avengers: Endgame",
-      rating: "8.4/10",
-      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      genre: "Action, Adventure",
-      duration: "3h 1m"
-    },
-    {
-      id: 3,
-      title: "Joker",
-      rating: "8.4/10",
-      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      genre: "Crime, Drama",
-      duration: "2h 2m"
-    },
-    {
-      id: 4,
-      title: "Spider-Man: Far From Home",
-      rating: "7.5/10",
-      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      genre: "Action, Adventure",
-      duration: "2h 9m"
-    },
-    {
-      id: 5,
-      title: "The Lion King",
-      rating: "6.9/10",
-      times: ["10:00 AM", "1:30 PM", "6:00 PM", "9:00 PM"],
-      genre: "Animation, Adventure",
-      duration: "1h 58m"
-    }
-  ];
-
   // Time slot selection
   const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);

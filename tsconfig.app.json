@@ -34,6 +34,8 @@
       "@services/*": ["services/*"],
       "@styles/*": ["styles/*"],
       "@layouts/*": ["layouts/*"],
+      "@store/*": ["store/*"],
+      "@types/*": ["types/*"],
       "@routes/*": ["routes/*"]
     }
   },

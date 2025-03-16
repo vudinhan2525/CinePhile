@@ -5,4 +5,6 @@ export interface Movie {
   times: string[];
   genre: string;
   duration: string;
-}
+  image?: string; 
+  year?: string; 
+};
