@@ -1,7 +1,9 @@
-import LoadingOverlay from "@components/Loading"; // Import loading component bạn đã tạo
+import LoadingOverlay from "@components/Loading";
 import { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import adminRoutes from "./adminRoutes";
 import publicRoutes from "./publicRoutes";
+import userRoutes from "./userRoutes";
 
 const AppRoutes = () => {
   return (
@@ -13,11 +15,32 @@ const AppRoutes = () => {
               key={i}
               path={route.path}
               element={route.element}
-              children={route.children && route.children.map((childRoute, j) => (
+              children={route.children?.map((childRoute, j) => (
                 <Route
                   key={`${i}-${j}`}
                   path={childRoute.path}
                   index={childRoute.index}
+                  element={childRoute.element}
+                />
+              ))}
+            />
+          ))}
+          {userRoutes.map((route, i) => (
+            <Route
+              key={`user-${i}`}
+              path={route.path}
+              element={route.element}
+            />
+          ))}
+          {adminRoutes.map((route, i) => (
+            <Route
+              key={`admin-${i}`}
+              path={route.path}
+              element={route.element}
+              children={route.children?.map((childRoute, j) => (
+                <Route
+                  key={`admin-${i}-${j}`}
+                  path={childRoute.path}
                   element={childRoute.element}
                 />
               ))}
